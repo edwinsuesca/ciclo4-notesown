@@ -9,14 +9,6 @@ const noteSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    creationDate: {
-        type: Date,
-        default: Date.now
-    },
-    updateDate: {
-        type: Date,
-        required: false
-    },
     ownerId: {
         type: String,
         required: true
@@ -37,11 +29,13 @@ const noteSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
-});
+}, { timestamps: true });
 
 noteSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id;
+        returnedObject.createdAt = returnedObject.createdAt.toString();
+        returnedObject.updatedAt = returnedObject.updatedAt.toString();
         delete returnedObject._id;
         delete returnedObject.__v;
     }

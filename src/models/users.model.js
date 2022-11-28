@@ -13,11 +13,13 @@ const userSchema = mongoose.Schema({
         type: String,
         required: false
     }
-});
+}, { timestamps: true});
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id;
+        returnedObject.createdAt = returnedObject.createdAt.toString();
+        returnedObject.updatedAt = returnedObject.updatedAt.toString();
         delete returnedObject._id;
         delete returnedObject.__v;
     }
